@@ -50,6 +50,4 @@ test:
 #
 production:
   <<: *default
-  database: rails72_azure_production
-  username: rails72_azure
-  password: <%= ENV["RAILS72_AZURE_DATABASE_PASSWORD"] %>
+  url: <%= ENV["DATABASE_URL"] %>
