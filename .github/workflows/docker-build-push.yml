@@ -35,12 +35,12 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          tags: type=raw,value=rails81
+          tags: type=raw,value=rails72-azure
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: ./rails81
+          context: ./rails72-azure
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
