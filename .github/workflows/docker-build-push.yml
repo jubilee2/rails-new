@@ -37,6 +37,9 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: type=raw,value=rails81
 
+      - name: Pull existing Docker image
+        run: docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:rails81 || true
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
