@@ -1,6 +1,6 @@
 <h1>Todo List</h1>
 
-<p>Signed in as <strong><%= current_user_email %></strong>.</p>
+<p>Signed in as <strong><%= current_user.email %></strong>.</p>
 
 <%= form_with model: @todo, url: todos_path do |form| %>
   <% if @todo.errors.any? %>
@@ -37,4 +37,4 @@
 <% end %>
 
 <p><%= link_to "Home", root_path %></p>
-<%= button_to "Sign out", logout_path, method: :delete %>
+<%= button_to "Sign out", destroy_user_session_path, method: :delete %>

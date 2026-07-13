@@ -1,19 +1,18 @@
 class TodosController < ApplicationController
-  before_action :require_login
   before_action :set_todo, only: %i[update destroy]
 
   def index
-    @todo = Todo.new
-    @todos = Todo.where(owner_email: current_user_email).recent_first
+    @todo = current_user.todos.build
+    @todos = current_user.todos.recent_first
   end
 
   def create
-    @todo = Todo.new(todo_params.merge(owner_email: current_user_email))
+    @todo = current_user.todos.build(todo_params)
 
     if @todo.save
       redirect_to todos_path, notice: "Todo added."
     else
-      @todos = Todo.where(owner_email: current_user_email).recent_first
+      @todos = current_user.todos.recent_first
       render :index, status: :unprocessable_entity
     end
   end
@@ -31,7 +30,7 @@ class TodosController < ApplicationController
   private
 
   def set_todo
-    @todo = Todo.find_by!(id: params[:id], owner_email: current_user_email)
+    @todo = current_user.todos.find(params[:id])
   end
 
   def todo_params
