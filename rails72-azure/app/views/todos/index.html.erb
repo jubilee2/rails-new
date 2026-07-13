@@ -1,0 +1,40 @@
+<h1>Todo List</h1>
+
+<p>Signed in as <strong><%= current_user.email %></strong>.</p>
+
+<%= form_with model: @todo, url: todos_path do |form| %>
+  <% if @todo.errors.any? %>
+    <div>
+      <h2><%= pluralize(@todo.errors.count, "error") %> prevented this todo from being saved:</h2>
+      <ul>
+        <% @todo.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :title, "New todo" %><br>
+    <%= form.text_field :title, required: true, placeholder: "Test the Azure container" %>
+    <%= form.submit "Add" %>
+  </div>
+<% end %>
+
+<ul>
+  <% @todos.each do |todo| %>
+    <li>
+      <%= todo.completed? ? "✅" : "⬜" %>
+      <%= todo.title %>
+      <%= button_to(todo.completed? ? "Mark open" : "Mark done", todo_path(todo), method: :patch) %>
+      <%= button_to "Delete", todo_path(todo), method: :delete %>
+    </li>
+  <% end %>
+</ul>
+
+<% if @todos.empty? %>
+  <p>No todos yet. Add one above to verify the database is writable.</p>
+<% end %>
+
+<p><%= link_to "Home", root_path %></p>
+<%= button_to "Sign out", destroy_user_session_path, method: :delete %>
