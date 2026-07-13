@@ -1,0 +1,17 @@
+<h1>Rails 7.2 Azure Demo Login</h1>
+
+<p>Use <strong>admin@example.com</strong> / <strong>password</strong> unless DEMO_LOGIN_EMAIL and DEMO_LOGIN_PASSWORD are set.</p>
+
+<%= form_with url: login_path, method: :post do |form| %>
+  <div>
+    <%= form.label :email %><br>
+    <%= form.email_field :email, value: "admin@example.com", required: true, autofocus: true %>
+  </div>
+
+  <div>
+    <%= form.label :password %><br>
+    <%= form.password_field :password, required: true %>
+  </div>
+
+  <%= form.submit "Sign in" %>
+<% end %>
